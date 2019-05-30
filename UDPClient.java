@@ -6,20 +6,32 @@ public class UDPClient {
     DatagramSocket dataSocket = new DatagramSocket();
 
     byte[] msg = a[0].getBytes();
+
     InetAddress endDst = InetAddress.getByName(a[1]);
-    int portDst = 6789;
+    int portDst = UDPServerConfig.DEFAULT_PORT;
 
-    DatagramPacket packet =
-      new DatagramPacket(msg, msg.length, endDst, portDst);
+    DatagramPacket packet = new DatagramPacket(
+      msg, msg.length, endDst, portDst
+    );
 
-    System.out.println(String.format("Enviando o pacote UDP para o endereço %s, porta %d", a[1], portDst));
+    System.out.println(
+      String.format(
+        "Enviando o pacote UDP para o endereço %s, porta %d",
+        a[1], portDst
+      )
+    );
+
     dataSocket.send(packet);
 
-    byte[] receivingMsg = new byte[1024];
-    DatagramPacket receivingPacket = new DatagramPacket(receivingMsg, receivingMsg.length);
+    byte[] receivingMsg = new byte[UDPServerConfig.DEFAULT_PACKET_SIZE];
+    DatagramPacket receivingPacket = new DatagramPacket(
+      receivingMsg,
+      receivingMsg.length
+    );
     dataSocket.receive(receivingPacket);
 
-    System.out.println("Chegou: " + new String(receivingPacket.getData()));
+    final String receivedData = new String(receivingPacket.getData());
+    System.out.println("Chegou: " + receivedData);
   }
 }
 
