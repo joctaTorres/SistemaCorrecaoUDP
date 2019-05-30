@@ -1,10 +1,10 @@
 import java.net.*;
 import java.io.*;
 
-public class UDPServer3WorkerThread extends Thread {
+public class UDPServerWorker extends Thread {
   private final DatagramPacket packet;
 
-  public UDPServer3WorkerThread(DatagramPacket requestPacket) {
+  public UDPServerWorker(DatagramPacket requestPacket) {
     this.packet = new DatagramPacket(
       requestPacket.getData(),
       requestPacket.getLength(),
@@ -19,7 +19,9 @@ public class UDPServer3WorkerThread extends Thread {
       dataSocket.send(this.packet);
       dataSocket.close();
     } catch (Exception e) {
-
+      System.out.println("Algo de errado aconteceu :(");
     }
   }
+
+  private 
 }

@@ -1,7 +1,7 @@
 import java.net.*;
 import java.io.*;
 
-public class UDPServer3 {
+public class UDPServer {
   public static void main(String a[]) throws Exception {
     DatagramSocket dataSocket = new DatagramSocket(
       UDPServerConfig.DEFAULT_PORT
@@ -16,7 +16,7 @@ public class UDPServer3 {
       );
       dataSocket.receive(receivingPacket);
 
-      new UDPServer3WorkerThread(receivingPacket).start();
+      new UDPServerWorker(receivingPacket).start();
     }
   }
 }
