@@ -7,7 +7,7 @@ public class UDPClient {
 
     byte[] msg = a[0].getBytes();
 
-    InetAddress endDst = InetAddress.getByName(a[1]);
+    InetAddress endDst = InetAddress.getByName("localhost");
     int portDst = UDPServerConfig.DEFAULT_PORT;
 
     DatagramPacket packet = new DatagramPacket(
@@ -16,8 +16,8 @@ public class UDPClient {
 
     System.out.println(
       String.format(
-        "Enviando o pacote UDP para o endereço %s, porta %d",
-        a[1], portDst
+        "Enviando respostas: %s para a correção.",
+        a[0]
       )
     );
 
@@ -31,7 +31,7 @@ public class UDPClient {
     dataSocket.receive(receivingPacket);
 
     final String receivedData = new String(receivingPacket.getData());
-    System.out.println("Chegou: " + receivedData);
+    System.out.println("Resultado da correção: " + receivedData);
   }
 }
 
