@@ -1,6 +1,8 @@
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.FutureTask;
@@ -11,6 +13,15 @@ public class UDPServer {
     DatagramSocket dataSocket = new DatagramSocket(
       UDPServerConfig.DEFAULT_PORT
     );
+
+    final Map<Integer, List<String>> gabarito = new HashMap<>();
+    gabarito.put(1, Arrays.asList("V", "V", "F", "F", "V"));
+    gabarito.put(2, Arrays.asList("V","V","V","V"));
+    gabarito.put(3, Arrays.asList("F","F","V","F","F"));
+    gabarito.put(4, Arrays.asList("F","F","F"));
+    gabarito.put(5, Arrays.asList("V","V","F","V","F"));
+
+    System.out.println(String.format("Usando gabarito: %s", gabarito.toString()));
 
     final List<QuestaoAcertosErros> totalResults = new ArrayList<>();
 
@@ -23,7 +34,7 @@ public class UDPServer {
       );
       dataSocket.receive(receivingPacket);
 
-      final UDPServerWorker udpServerWorker = new UDPServerWorker(receivingPacket);
+      final UDPServerWorker udpServerWorker = new UDPServerWorker(receivingPacket, gabarito);
 
       FutureTask<List<QuestaoAcertosErros>> futureTask = new FutureTask<>(udpServerWorker);
       Thread thread = new Thread(futureTask);

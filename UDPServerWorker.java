@@ -7,15 +7,9 @@ public class UDPServerWorker implements Callable<List<QuestaoAcertosErros>> {
   private final DatagramPacket packet;
   private final Map<Integer, List<String>> expectedAnwsers;
 
-  public UDPServerWorker(DatagramPacket requestPacket) {
+  public UDPServerWorker(DatagramPacket requestPacket, Map<Integer, List<String>> gabarito) {
     this.packet = requestPacket;
-
-    this.expectedAnwsers = new HashMap<>();
-    expectedAnwsers.put(1, Arrays.asList("V", "V", "F", "F", "V"));
-    expectedAnwsers.put(2, Arrays.asList("V","V","V","V"));
-    expectedAnwsers.put(3, Arrays.asList("F","F","V","F","F"));
-    expectedAnwsers.put(4, Arrays.asList("F","F","F"));
-    expectedAnwsers.put(5, Arrays.asList("V","V","F","V","F"));
+    this.expectedAnwsers = gabarito;
   }
 
   @Override
